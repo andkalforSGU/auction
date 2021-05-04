@@ -6,19 +6,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users_table")
+@Table(name = "lots_table")
 @Data
-public class User {
+public class Lot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
-    private String login;
+    private String name;
 
     @Column
-    private String password;
+    private String description;
 
     @Column
-    private boolean is_adm;
+    private int user_id;
 }

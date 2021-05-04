@@ -18,6 +18,7 @@ public class UserConverter {
             user.setId(userDTO.getId());
             user.setLogin(userDTO.getLogin());
             user.setPassword(userDTO.getPassword());
+            user.set_adm(userDTO.is_adm());
 
             return user;
         }
@@ -30,6 +31,7 @@ public class UserConverter {
         userDTO.setId(user.getId());
         userDTO.setLogin(user.getLogin());
         userDTO.setPassword(user.getPassword());
+        userDTO.set_adm(user.is_adm());
 
         return userDTO;
     }

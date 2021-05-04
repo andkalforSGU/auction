@@ -20,7 +20,7 @@ public class DefaultUserService implements UserService{
     private final UserConverter userConverter;
 
     @Override
-    public UserDTO saveUser (UserDTO userDTO) throws ValidationException {
+    public UserDTO saveUser(UserDTO userDTO) throws ValidationException {
         User user = userConverter.UserDTOToUser(userDTO);
         userRepo.save(user);
 

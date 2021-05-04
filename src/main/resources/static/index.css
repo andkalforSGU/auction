@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    font-family: Chandas, serif;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+
+    background-color: #a1a1a1;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    height: 75%;
+    width: 50%;
+
+    margin-top: -5%;
+
+    background-color: azure;
+
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo {
+    font-size: 6ch;
+
+    user-select: none;
+}
+
+.inpt {
+    font-size: 2.5ch;
+    border-radius: 5px;
+}
+
+.btn {
+    width: 49.5%;
+    font-size: 1.8ch;
+    border-radius: 5px;
+    margin-top: 1%;
+}
+
+.btn-max {
+    width: 100%;
+    margin-top: 1%;
+    font-size: 1.8ch;
+    border-radius: 5px;
+}
+
+.green {
+    background-color: #92d773;
+}
+
+.blue {
+    background-color: #73cfd7;
+}
+
+.suc {
+    color: #70cd48;
+    font-size: 4.5ch;
+}
+
+.cntr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.val-log {
+    display: flex;
+    flex-direction: column;
+}
+
+.val {
+    border-color: #f64040;
+}
+
+.val-text {
+    color: #f64040;
+}
+
+.mainContainer {
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.lotsList {
+    height: 50%;
+    overflow: scroll;
+    background-color: #e7e7e7;
+}
