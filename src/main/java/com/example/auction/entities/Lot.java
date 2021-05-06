@@ -20,5 +20,5 @@ public class Lot {
     private String description;
 
     @Column
-    private int user_id;
+    private int userId;
 }

@@ -3,6 +3,14 @@
     font-family: Chandas, serif;
 }
 
+/*Убрать полосу прокрутки для всей страницы*/
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f9f9fd;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+}
+
 html {
     height: 100%;
     width: 100%;
@@ -102,7 +110,48 @@ body {
 }
 
 .lotsList {
-    height: 50%;
+    height: 100%;
+    width: 100%;
     overflow: scroll;
-    background-color: #e7e7e7;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    border: black 1px solid;
+    border-radius: 5px;
+}
+
+.listsCont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+    width: 65%;
+    align-items: center;
+}
+
+.preListCont {
+    height: 50%;
+    width: 45%;
+}
+
+.loginView {
+    font-size: 4.5ch;
+}
+
+.inpt-lot {
+    font-size: 1.8ch;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.form-c {
+    width: 38%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-lot {
+    width: 100%;
 }

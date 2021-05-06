@@ -13,7 +13,7 @@ public class LotConverter {
         lot.setId(lotDTO.getId());
         lot.setName(lotDTO.getName());
         lot.setDescription(lotDTO.getDescription());
-        lot.setUser_id(lotDTO.getUser_id());
+        lot.setUserId(lotDTO.getUser_id());
 
         return lot;
     }
@@ -24,7 +24,7 @@ public class LotConverter {
         lotDTO.setId(lot.getId());
         lotDTO.setDescription(lot.getDescription());
         lotDTO.setName(lot.getName());
-        lotDTO.setUser_id(lot.getUser_id());
+        lotDTO.setUser_id(lot.getUserId());
 
         return lotDTO;
     }

@@ -3,7 +3,6 @@ package com.example.auction.services;
 import com.example.auction.DTO.LotDTO;
 import com.example.auction.entities.Lot;
 import com.example.auction.repos.LotRepo;
-import com.example.auction.services.LotService;
 import com.example.auction.services.converts.LotConverter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,6 +33,14 @@ public class DefaultLotService implements LotService {
         if (lot != null) {
             return lotConverter.LotToLotDTO(lot);
         } else return null;
+    }
+
+    @Override
+    public List<LotDTO> findAllByUserId(int id) {
+        return lotRepo.findAllByUserId(id)
+                .stream()
+                .map(lotConverter::LotToLotDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

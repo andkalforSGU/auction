@@ -30,6 +30,12 @@ public class LotController {
         return lotService.findAll();
     }
 
+    @GetMapping("/findAllByUserId/{id}")
+    public List<LotDTO> findAllByUserId(@PathVariable Integer id) {
+        log.info("Find all lots by user id: " + id);
+        return lotService.findAllByUserId(id);
+    }
+
     @DeleteMapping("delete/{id}")
     public void deleteById(@PathVariable Integer id) {
         log.info("Delete lot: " + id);

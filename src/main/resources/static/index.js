@@ -82,28 +82,53 @@ const SignUpHTML = '<form class="frm">\n' +
 const SucHTML = '<span class="suc">Successfully!</span>';
 
 const mainPage = async (user, productList) => {
-    let lots = '';
+    let allLots = '';
+    let allUsersLotsList = '';
 
-    await productList.then(async lotsList => {
+    await allUsersLots(user).then(async lotsList => {
         if (lotsList) {
             lotsList = lotsList.reverse();
-            lots += '<div class="lotsList">\n';
+            allUsersLotsList += '<div class="lotsList">\n';
             lotsList.forEach( lot => {
-                lots += '<div>Name: '+lot.name+'</div>\n' +
-                    '<div>Description: '+lot.description+'</div>\n'
+                allUsersLotsList += '<div>Name: '+lot.name+'</div>\n' +
+                    '<div>Description: '+lot.description+'</div>\n' +
+                    '<button type="button" class="btn-lot val-text" id="delLot" data-id="'+lot.id+'">Delete</button>'
             });
-            lots += '</div>';
+            allUsersLotsList += '</div>';
         }
-    })
+    });
+
+    productList = productList.reverse();
+    allLots += '<div class="lotsList">\n';
+    await productList.forEach( lot => {
+
+        console.log(lot);
+        console.log(productList);
+
+        let btn = '<button type="button" class="btn-lot blue" id="delLot" data-id="'+lot.id+'">Buy</button>';
+
+        allLots += '<div>Name: '+lot.name+'</div>' +
+            '<div>Description: '+lot.description+'</div>\n' +
+            btn;
+        });
+    allLots += '</div>';
 
     return(
-        '<div class="mainContainer">' +
-        `<span>`+user.login+`</span>\n` +
+        '<div class="mainContainer"> ' +
+        `<div class="form-c"><span class="loginView">`+user.login+`</span>\n` +
         `<form class="frm">\n` +
-        `        <label for="name"></label> <div id="vallog" class="val-log"><input id="name" placeholder="name" class="inpt"></div>\n` +
-        `        <label for="description"></label> <div id="valpas" class="val-pas"><input id="description" placeholder="description" class="inpt"> </div>\n` +
-        `        <button onclick="newLot('${user}')" class="btn-max blue" type="button">Add lot</button>\n` +
-        `</form>\n` + lots +
+        `        <label for="name"></label> <div id="vallog" class="val-log"><input id="name" placeholder="name" class="inpt-lot"></div>\n` +
+        `        <label for="description"></label> <div id="valpas" class="val-pas"><input id="description" placeholder="description" class="inpt-lot"> </div>\n` +
+        `        <button id="addLot" class="inpt-lot blue" type="button">Add lot</button>\n` +
+        `</form></div>\n` +
+        `<div class="listsCont">
+            <div class="preListCont">
+                Your lots:` + allUsersLotsList + `
+            </div>
+            <div class="preListCont">
+                All lots:` + allLots + `
+            </div>
+        </div>\n` +
         '</div>'
     );
 }
@@ -147,15 +172,18 @@ async function regist() {
             document.getElementById("vallog").innerHTML = '<span class="val-text">Login is busy.</span>' +
                 '<input id="login" placeholder="Login" class="inpt val">';
         } else {
+
+            let user = JSON.stringify({
+                "login": login,
+                "password": password
+            })
+
             await fetch('http://localhost:8080/users/save', {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json;charset=utf-8"
                 },
-                body: {
-                    login: login,
-                    password: password
-                }
+                body: user
             });
 
             inner(SucHTML);
@@ -179,7 +207,7 @@ async function singIn() {
         } else return noLogin();
 
         if (user.password === password) {
-            inner(await mainPage(user, allLots()));
+            await inner(await mainPage(user, await allLots()), user);
         } else return noPas();
     });
 }
@@ -202,7 +230,12 @@ async function newLot(user) {
         body: JSON.stringify(lot)
     });
 
-    inner(await mainPage(user, allLots()));
+    await inner(await mainPage(user, await allLots()), user);
+}
+
+async function allUsersLots(user) {
+    let res = await fetch('http://localhost:8080/lots/findAllByUserId/'+user.id);
+    return await res.json();
 }
 
 async function allLots() {
@@ -210,8 +243,45 @@ async function allLots() {
     return await res.json();
 }
 
-function inner (HTML) {
+async function deleteLot(id, user) {
+    await fetch('http://localhost:8080/lots/delete/' + id, {
+        method: 'DELETE'
+    })
+
+    await inner(await mainPage(user, await allLots()), user);
+}
+
+async function inner(HTML, user) {
+
     document.getElementById('container').innerHTML = HTML;
+
+    try {
+        let delLot = document.getElementById("delLot");
+        let lotId = delLot.dataset.id;
+
+        delLot.onclick = async () => {
+            await deleteLot(lotId, user);
+        }
+    } catch (e) {}
+
+    try {
+        document.getElementById("addLot").onclick = () => {
+            newLot(user);
+        };
+    } catch (e) {}
 }
 
 inner(LoginHTML);
+
+//------------------------------------------------------
+
+function inArray(arr, obj) {
+    let flag = false;
+
+    arr.forEach(o => {
+        if (JSON.stringify(o) === JSON.stringify(obj))
+            return flag = true;
+    })
+
+    return flag;
+}

@@ -8,6 +8,7 @@ import java.util.List;
 public interface LotService {
     LotDTO saveLot(LotDTO lotDTO) throws ValidationException;
     LotDTO findByName(String name);
+    List<LotDTO> findAllByUserId(int id);
     void deleteLot(int lotId);
     List<LotDTO> findAll();
 }
